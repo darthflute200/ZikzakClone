@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 Direction;
     private void Move()
     {
-        rb.velocity = speed * Direction;
+        transform.position += speed * Direction * Time.deltaTime;
         if (Input.GetMouseButton(0))
         {
             Direction = Vector3.left;
@@ -29,11 +29,5 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Ground"))
-        {
-            Direction = Vector3.zero;
-        }
-    }
+
 }
