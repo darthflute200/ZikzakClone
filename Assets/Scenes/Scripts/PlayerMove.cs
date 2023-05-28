@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public int count;
     [SerializeField] float speed;
     private Rigidbody rb;
     private Vector3 Direction;
+    AudioSource audiosource;
     private void Move()
     {
         transform.position += speed * Direction * Time.deltaTime;
@@ -23,12 +25,21 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Direction = Vector3.forward;
+        audiosource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         Move();
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Point"))
+        {
+            Destroy(other.gameObject);
+            count++;
+            audiosource.Play();
+        }
+    }
 
-    
 }
